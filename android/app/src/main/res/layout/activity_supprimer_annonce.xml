@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/laysupprimer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_list"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+
+    <TextView
+        android:id="@+id/titre1"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:fontFamily="@font/carter_one"
+        android:gravity="center"
+        android:text="Gérer mes annonces"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+
+        android:textStyle="bold|italic"
+        android:typeface="normal" />
+
+    <ListView
+        android:id="@+id/listannoncesup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:animateLayoutChanges="true"
+        android:animationCache="true"
+        android:cacheColorHint="#1565C0">
+
+    </ListView>
+
+
+</LinearLayout>
+

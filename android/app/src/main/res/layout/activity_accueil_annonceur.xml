@@ -1,0 +1,232 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layannonceur"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/gradient_list"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/titreannonce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/carter_one"
+        android:gravity="center|top"
+        android:text="Mon espace"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+
+        android:textStyle="bold|italic"
+        android:typeface="normal" />
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:alignmentMode="alignMargins"
+        android:columnCount="2"
+        android:columnOrderPreserved="false"
+        android:gravity="center"
+        android:padding="20dp"
+        android:rowCount="4">
+
+        <!-- 1 -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/deposer"
+            android:layout_width="150dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="10dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClick="deposer"
+            app:cardBackgroundColor="#B8FFB1"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="20dp">
+
+            <TextView
+                android:id="@+id/info_textc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center|top"
+                android:text="Déposer"
+                android:textColor="#B2190303"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:src="@drawable/add" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- 2 -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/modifier"
+            android:layout_width="150dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="30dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClick="modifier"
+            app:cardBackgroundColor="#F8D192"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="20dp">
+
+            <TextView
+                android:id="@+id/info_textc1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center|top"
+                android:text="Modifier"
+                android:textColor="#B2190303"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:src="@drawable/edit" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- 3 -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/supprimer"
+            android:layout_width="150dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClick="supprimer"
+            app:cardBackgroundColor="#F8D192"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="20dp">
+
+            <TextView
+                android:id="@+id/info_textc2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center|top"
+                android:text="Gérer"
+                android:textColor="#B2190303"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:src="@drawable/logo" />
+        </androidx.cardview.widget.CardView>
+        <!-- 4 -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/consulter"
+            android:layout_width="150dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClick="consulter"
+            app:cardBackgroundColor="#C2DFFF"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="20dp">
+
+            <TextView
+                android:id="@+id/info_textc5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center|top"
+                android:text="Mes annonces"
+                android:textColor="#B2190303"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center"
+                android:src="@drawable/list" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- 5 -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/statsannonce"
+            android:layout_width="150dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClick="statistic"
+            app:cardBackgroundColor="#C2DFFF"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="20dp">
+
+            <TextView
+                android:id="@+id/info_textc4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:gravity="center|top"
+                android:text="Stats"
+                android:textColor="#B2190303"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:src="@drawable/stat" />
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/messagea"
+            android:layout_width="150dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClick="messagerie"
+            app:cardBackgroundColor="#E2B2FF"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="20dp">
+
+            <TextView
+                android:id="@+id/info_textc1a"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center|top"
+                android:text="Méssages"
+                android:textColor="#B2190303"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageView1a"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:src="@drawable/message" />
+        </androidx.cardview.widget.CardView>
+    </GridLayout>
+
+</LinearLayout>

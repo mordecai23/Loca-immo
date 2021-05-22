@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/laystats"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/gradient_list">
+
+    <LinearLayout
+        android:id="@+id/linearstat"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="8dp"
+
+        >
+
+        <TextView
+            android:id="@+id/titrestats"
+            android:layout_width="fill_parent"
+            android:layout_height="80dp"
+
+            android:fontFamily="@font/carter_one"
+            android:gravity="center"
+            android:text="Statistiques globales"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp"
+            android:typeface="normal" />
+
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25sp"
+
+            android:gravity="center"
+            android:text="Le pourcentage du nombre de consultations selon le type d'immobillier que vous avez déposé"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold|italic" />
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pieCharttype"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:background="@drawable/roundlist" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25sp"
+
+            android:gravity="center"
+            android:text="Le pourcentage du nombre de consultation selon la position géographique des immobiliers"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold|italic" />
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pieChartville"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:background="@drawable/roundlist" />
+
+        <TextView
+            android:id="@+id/textView24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25sp"
+
+            android:gravity="center"
+            android:text="Le nombre de consultation selon la position géographique des clients"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold|italic" />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barchart"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/roundlist" />
+
+        <TextView
+            android:id="@+id/titrestats2"
+            android:layout_width="fill_parent"
+            android:layout_height="80dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/carter_one"
+            android:gravity="center"
+            android:text="Statistiques individuelles"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp"
+            android:typeface="normal" />
+    </LinearLayout>
+</ScrollView>

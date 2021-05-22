@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/indi"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/gradient_list"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/roundannonce"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/titreannonce3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/carter_one"
+            android:gravity="center"
+            android:text="Maison de la loire moche"
+            android:textAllCaps="false"
+            android:textColor="#181F4E"
+            android:textSize="25sp"
+            android:textStyle="bold|italic"
+            android:typeface="normal" />
+
+        <ImageView
+            android:id="@+id/imageconsulte1"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginTop="20dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/camera" />
+
+        <ImageView
+            android:id="@+id/imageconsulte2"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginTop="20dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/camera" />
+
+        <Button
+            android:id="@+id/btncontacter"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/roundbutton"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:onClick="contacter"
+            android:text="Contacter l'annonceur"
+            android:textSize="18sp"
+
+            />
+
+        <Button
+            android:id="@+id/btnajouteraliste"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/roundlist"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:onClick="ajouteralist"
+            android:text="Ajouter à ma liste"
+            android:textSize="18sp"
+
+            />
+
+        <Button
+            android:id="@+id/btnsupprimerdeliste"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/roundlist2"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:onClick="supprimerdelist"
+            android:text="Enlever de ma liste"
+            android:textSize="18sp"
+
+            />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/alert"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardBackgroundColor="#D5E7EEF6"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/typeannonce1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="Appartement"
+                    android:textAllCaps="false"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:typeface="normal" />
+
+                <TextView
+                    android:id="@+id/loyerannonce1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Loyer : 9000 "
+                    android:textAllCaps="false"
+                    android:textColor="#060607"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:typeface="normal" />
+
+                <TextView
+                    android:id="@+id/descriptionannonce1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="Grande maison moche inutile qui pue et qui ser à rien mis à part garder mes chiens"
+                    android:textAllCaps="false"
+                    android:textColor="#0A103A"
+                    android:textSize="18sp"
+
+                    android:textStyle="italic"
+                    android:typeface="normal" />
+
+                <TextView
+                    android:id="@+id/surfaceannonce1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:text="Surface : 90000 "
+                    android:textAllCaps="false"
+                    android:textColor="#040303"
+                    android:textSize="20sp"
+
+                    android:typeface="normal" />
+
+                <TextView
+                    android:id="@+id/adresseannonce1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="1, Rue de la chiotte, 34000 "
+                    android:textAllCaps="false"
+                    android:textColor="#040303"
+                    android:textSize="18sp"
+
+                    android:typeface="normal" />
+
+                <TextView
+                    android:id="@+id/villeannonce1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+
+                    android:gravity="center"
+                    android:text="Montpellier "
+                    android:textAllCaps="true"
+                    android:textColor="#040303"
+                    android:textSize="20sp"
+
+                    android:typeface="normal" />
+
+                <TextView
+                    android:id="@+id/dureeannonce1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="25 mois "
+                    android:textAllCaps="false"
+                    android:textColor="#040303"
+                    android:textSize="20sp"
+
+                    android:typeface="normal" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</ScrollView>
+
+

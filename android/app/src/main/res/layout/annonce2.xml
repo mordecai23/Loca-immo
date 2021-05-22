@@ -1,0 +1,71 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/roundlist"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/photoannonce"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/camera" />
+
+    <TextView
+        android:id="@+id/titreannonce2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/carter_one"
+        android:gravity="center"
+        android:text="Maison campagne"
+        android:textAllCaps="false"
+        android:textColor="#0D3F78"
+        android:textSize="25sp"
+        android:textStyle="bold|italic"
+        android:typeface="normal" />
+
+    <TextView
+        android:id="@+id/typeannonce2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/carter_one"
+        android:gravity="center"
+        android:text="type"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="19sp"
+
+        android:textStyle="bold"
+        android:typeface="normal" />
+
+    <TextView
+        android:id="@+id/villeannonce2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/carter_one"
+        android:gravity="center"
+        android:text="ville"
+        android:textAllCaps="true"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:typeface="normal" />
+
+    <TextView
+        android:id="@+id/Loyerannonce2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/carter_one"
+        android:gravity="center"
+        android:text="Loyer"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="15sp"
+
+        android:typeface="normal" />
+
+
+</LinearLayout>

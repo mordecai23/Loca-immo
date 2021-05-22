@@ -1,0 +1,170 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layclient"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/gradient_list"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/titreclient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/carter_one"
+        android:gravity="center"
+        android:text="Mon espace"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+
+        android:textStyle="bold|italic"
+        android:typeface="normal" />
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:alignmentMode="alignMargins"
+        android:columnCount="2"
+        android:columnOrderPreserved="false"
+        android:gravity="center"
+        android:padding="5dp"
+        android:rowCount="5">
+
+        <!-- 1 -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/nouveaute"
+            android:layout_width="150dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="10dp"
+
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClick="nouveaute"
+            app:cardBackgroundColor="#A5F69F"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="20dp">
+
+            <TextView
+                android:id="@+id/info_textc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center|top"
+                android:text="Nouveauté"
+                android:textColor="#B2190303"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:src="@drawable/logo" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- 2 -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/message"
+            android:layout_width="150dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="30dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClick="messageclient"
+            app:cardBackgroundColor="#E2B2FF"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="20dp">
+
+            <TextView
+                android:id="@+id/info_textc1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center|top"
+                android:text="Méssages"
+                android:textColor="#B2190303"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:src="@drawable/message" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- 3 -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/maliste"
+            android:layout_width="150dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+
+            android:layout_marginRight="10dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClick="maliste"
+            app:cardBackgroundColor="#F8D192"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="20dp">
+
+            <TextView
+                android:id="@+id/info_textc2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center|top"
+                android:text="Ma liste"
+                android:textColor="#B2190303"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:src="@drawable/list" />
+        </androidx.cardview.widget.CardView>
+
+
+        <!-- 6 -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/alert"
+            android:layout_width="150dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClick="alert"
+            app:cardBackgroundColor="#C2DFFF"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="20dp">
+
+            <TextView
+                android:id="@+id/info_textc5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center|top"
+                android:text="Alerte"
+                android:textColor="#B2190303"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center"
+                android:src="@drawable/alert" />
+        </androidx.cardview.widget.CardView>
+
+
+    </GridLayout>
+</LinearLayout>

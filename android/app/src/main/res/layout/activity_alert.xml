@@ -24,7 +24,7 @@
             android:textAllCaps="false"
 
             android:textColor="#FFFFFF"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:textStyle="bold|italic"
             android:typeface="normal" />
 
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/carter_one"
             android:gravity="center"
-            android:text="Soyez alerté dès qu'une annonce qui correspond à vos critères est déposée"
+            android:text="Soyez alerté dès qu'une annonce qui correspond à vos critères est déposée."
             android:textAllCaps="false"
 
             android:textColor="#FFFFFF"
@@ -148,7 +148,7 @@
             android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
             android:onClick="supprimeralert"
-            android:text="Désactiver toutes mes alertes"
+            android:text="Désactiver l'alerte"
             android:textSize="18sp"
 
             />

@@ -190,6 +190,7 @@ public class Function extends Activity {
         MySingleton.getInstance(c).addToRequestQueue(jsonObjectRequest);
     }
 
+
 }
 
 
@@ -213,7 +214,7 @@ public class Function extends Activity {
 
 
 
- /*       final Thread thread = new Thread(new Runnable() {
+   /*   final Thread thread = new Thread(new Runnable() {
 
             @Override
             public void run() {

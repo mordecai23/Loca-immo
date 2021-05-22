@@ -116,7 +116,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center|top"
-                android:text="Gérer"
+                android:text="Plus d'options"
                 android:textColor="#B2190303"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -182,7 +182,7 @@
                 android:layout_height="match_parent"
 
                 android:gravity="center|top"
-                android:text="Stats"
+                android:text="Statistiques"
                 android:textColor="#B2190303"
                 android:textSize="18sp"
                 android:textStyle="bold" />

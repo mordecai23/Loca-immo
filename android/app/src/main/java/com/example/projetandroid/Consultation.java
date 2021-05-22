@@ -10,11 +10,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Spinner;
+
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,10 +36,11 @@ public class Consultation extends Activity implements SearchView.OnQueryTextList
     EditText searchsurface;
     Spinner searchtype;
     Button btngosearch;
+    SwipeRefreshLayout ll;
 
     int consult;
 
-    ArrayList<annonce> listannonce = new ArrayList<annonce>();
+    ArrayList<annonce> listannonce1 = new ArrayList<annonce>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +48,8 @@ public class Consultation extends Activity implements SearchView.OnQueryTextList
         setContentView(R.layout.activity_consultation);
         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         //fond d'écran
-        LinearLayout ll = findViewById(R.id.layconsulter);
-        AnimationDrawable animationDrawable = (AnimationDrawable) ll.getBackground();
+        ll = findViewById(R.id.swiperefreshconsultation);
+        AnimationDrawable animationDrawable = (AnimationDrawable) findViewById(R.id.layconsulter).getBackground();
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
@@ -85,7 +87,7 @@ public class Consultation extends Activity implements SearchView.OnQueryTextList
         l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                annonce annoncesupp = listannonce.get(i);
+                annonce annoncesupp = listannonce1.get(i);
                 final String idannonce = annoncesupp.getIdAnnonce();
                 final String typebien = annoncesupp.getTypeBien();
                 final String desc = annoncesupp.getDescription();
@@ -157,7 +159,7 @@ public class Consultation extends Activity implements SearchView.OnQueryTextList
                                 a.setVille(j.getString("ville"));
                                 a.setLoyer(j.getString("Loyer"));
                                 a.setSurface(j.getString("surface"));
-                                listannonce.add(a);
+                                listannonce1.add(a);
                                 ad.add(a);
 
                             }
@@ -189,6 +191,92 @@ public class Consultation extends Activity implements SearchView.OnQueryTextList
         });
         thread.start();
 
+        ll.setOnRefreshListener(() -> {
+            ArrayList<annonce> ref = new ArrayList<>();
+
+            final Thread thread1 = new Thread(() -> {
+                try {
+                    json_string = Function.getresult(lienbdd, query);
+                    if (json_string != null) {
+                        try {
+                            JSONObject json = new JSONObject(json_string);
+                            JSONArray tabjson = json.getJSONArray("res");
+                            String idAnnonce, titre, TypeBien, desc;
+                            for (int i = 0; i < tabjson.length(); i++) {
+
+                                JSONObject j = tabjson.getJSONObject(i);
+                                String lienbdd1 = "https://terl3recette.000webhostapp.com/Getimage.php";
+                                String queryimage = "select lien from image where idAnnonce='" + j.getString("idAnnonce") + "'";
+
+                                String res = Function.getresult(lienbdd1, queryimage);
+                                JSONObject json1 = new JSONObject(res);
+                                JSONArray tabjson1 = json1.getJSONArray("res");
+
+
+                                idAnnonce = j.getString("idAnnonce");
+                                titre = j.getString("titre");
+                                TypeBien = j.getString("typeBien");
+                                desc = j.getString("description");
+                                annonce a = new annonce(idAnnonce, titre, TypeBien, desc);
+                                if (tabjson1.length() == 1) {
+                                    String[] arr = {tabjson1.getJSONObject(0).getString("lien"), ""};
+                                    a.setLienimage(arr);
+                                } else if (tabjson1.length() == 2) {
+                                    String[] arr = {tabjson1.getJSONObject(0).getString("lien"), tabjson1.getJSONObject(1).getString("lien")};
+                                    a.setLienimage(arr);
+                                } else {
+                                    String[] arr = {"", ""};
+                                    a.setLienimage(arr);
+                                }
+                                a.setDureedispo(j.getString("dureedispo"));
+                                a.setAdresse(j.getString("Adresse"));
+                                a.setTypeContact(j.getString("TypeContact"));
+                                a.setVille(j.getString("ville"));
+                                a.setLoyer(j.getString("Loyer"));
+                                a.setSurface(j.getString("surface"));
+                                ref.add(a);
+
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+
+            thread1.start();
+            try {
+                thread1.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    try {
+                        ad.listannonce.clear();
+                        ad.list.clear();
+                        ad.list.addAll(ref);
+                        ad.listannonce.addAll(ref);
+                        l.setAdapter(ad);
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            listannonce1.clear();
+            listannonce1.addAll(ref);
+            ll.setRefreshing(false);
+        });
+
     }
 
 
@@ -201,7 +289,7 @@ public class Consultation extends Activity implements SearchView.OnQueryTextList
     public boolean onQueryTextChange(String newText) {
         hide();
         String text = newText;
-        listannonce = ad.filter(text.trim());
+        listannonce1 = ad.filter(text.trim());
         l.setAdapter(ad);
         return false;
     }
@@ -234,8 +322,8 @@ public class Consultation extends Activity implements SearchView.OnQueryTextList
         String ville = searchville.getText().toString().trim();
         String type = searchtype.getSelectedItem().toString();
         hide();
-        listannonce = ad.search(loyer, surface, ville, type);
-        Log.d("hddgf", String.valueOf(listannonce.size()));
+        listannonce1 = ad.search(loyer, surface, ville, type);
+        Log.d("hddgf", String.valueOf(listannonce1.size()));
         l.setAdapter(ad);
 
     }

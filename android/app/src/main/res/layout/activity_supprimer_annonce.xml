@@ -13,13 +13,13 @@
     <TextView
         android:id="@+id/titre1"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/carter_one"
         android:gravity="center"
-        android:text="Gérer mes annonces"
+        android:text="Supprimer/Renforcer mes annonces"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
-        android:textSize="30sp"
+        android:textSize="20sp"
 
         android:textStyle="bold|italic"
         android:typeface="normal" />

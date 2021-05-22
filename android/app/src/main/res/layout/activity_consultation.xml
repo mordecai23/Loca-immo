@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layconsulter"
     android:layout_width="match_parent"
@@ -15,7 +13,7 @@
         android:layout_height="50dp"
         android:background="@drawable/roundlist"
         android:iconifiedByDefault="false"
-        android:queryHint="Titre, Type, Ville, description...">
+        android:queryHint="Titre, Type, Ville, Description">
 
     </SearchView>
 
@@ -108,20 +106,26 @@
         android:gravity="center"
         android:indeterminate="true" />
 
-    <ListView
-        android:id="@+id/listannonconsulte"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefreshconsultation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/searchview"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:animateLayoutChanges="true"
-        android:animationCache="true"
-        android:cacheColorHint="#1565C0"
-        android:visibility="gone">
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp">
 
-    </ListView>
+        <ListView
+            android:id="@+id/listannonconsulte"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/searchview"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:animateLayoutChanges="true"
+            android:animationCache="true"
+            android:cacheColorHint="#1565C0"
+            android:visibility="gone">
 
+        </ListView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>
 

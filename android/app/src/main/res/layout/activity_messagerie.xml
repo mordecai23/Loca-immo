@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/laymessagerie"
+    android:id="@+id/laymessage"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/gradient_list"
     android:gravity="center|top"
     android:orientation="vertical">
+
     <TextView
         android:id="@+id/titremessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/carter_one"
         android:gravity="center"
-        android:text="Messages recus"
+        android:text="Méssages reçus"
         android:textAllCaps="false"
         android:textColor="#CACCCD"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:typeface="normal" />
 
@@ -47,7 +48,7 @@
             android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
             android:onClick="getreception"
-            android:text="Reception"
+            android:text="Réception"
             android:textColor="#050505" />
 
         <RadioButton
@@ -64,15 +65,19 @@
             android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
             android:onClick="getenvoie"
-            android:text="Envoie"
+            android:text="Envoi"
             android:textColor="#000000" />
     </RadioGroup>
 
-
-
-    <ListView
-        android:id="@+id/listmessage"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefreshmssg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/roundlist" />
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/listmessage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/roundlist" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

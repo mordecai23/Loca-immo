@@ -25,7 +25,8 @@
             android:text="Statistiques globales"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:textSize="25sp"
+            android:textSize="20sp"
+            android:textStyle="bold"
             android:typeface="normal" />
 
 
@@ -53,7 +54,7 @@
             android:layout_marginTop="25sp"
 
             android:gravity="center"
-            android:text="Le pourcentage du nombre de consultations selon la position géographique des immobiliers"
+            android:text="Le pourcentage du nombre de consultations selon la position géographique des immobiliers que vous avez déposé."
             android:textColor="#FFFFFF"
             android:textStyle="bold|italic" />
 
@@ -70,7 +71,7 @@
             android:layout_marginTop="25sp"
 
             android:gravity="center"
-            android:text="Le nombre de consultations selon la position géographique des clients"
+            android:text="Le nombre de consultations selon la position géographique des clients."
             android:textColor="#FFFFFF"
             android:textStyle="bold|italic" />
 
@@ -91,7 +92,8 @@
             android:text="Statistiques individuelles"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:textSize="25sp"
+            android:textSize="20sp"
+            android:textStyle="bold"
             android:typeface="normal" />
     </LinearLayout>
 </ScrollView>

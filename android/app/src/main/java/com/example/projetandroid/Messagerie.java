@@ -11,12 +11,13 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,6 +35,7 @@ public class Messagerie extends Activity {
     ListView l;
     RadioButton r, e;
     TextView t;
+    SwipeRefreshLayout ll;
     int ix = 0;
     List<Map<String, String>> data = new ArrayList<>();
 
@@ -43,8 +45,8 @@ public class Messagerie extends Activity {
         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         setContentView(R.layout.activity_messagerie);
         //fond d'écran
-        LinearLayout ll = findViewById(R.id.laymessagerie);
-        AnimationDrawable animationDrawable = (AnimationDrawable) ll.getBackground();
+        ll = findViewById(R.id.swiperefreshmssg);
+        AnimationDrawable animationDrawable = (AnimationDrawable) findViewById(R.id.laymessage).getBackground();
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
@@ -138,10 +140,52 @@ public class Messagerie extends Activity {
                 }
             }
         });
+
+        ll.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                data.clear();
+                t.setText("Méssages reçus");
+                r.setBackgroundColor(Color.WHITE);
+                r.setTextColor(Color.BLACK);
+                e.setBackgroundColor(Color.RED);
+                e.setTextColor(Color.WHITE);
+                r.setEnabled(false);
+                e.setEnabled(true);
+                String jsonres1 = Function.getresult(lienbdd, query);
+                if (jsonres1 != null) {
+                    try {
+                        JSONObject json = new JSONObject(jsonres1);
+                        JSONArray tabjson = json.getJSONArray("res");
+
+                        for (int i = 0; i < tabjson.length(); i++) {
+
+                            JSONObject j = tabjson.getJSONObject(i);
+                            String message = j.getString("contenu");
+                            String envoyeur = j.getString("mail");
+                            Map<String, String> datum = new HashMap<String, String>(2);
+                            datum.put("First Line", envoyeur);
+                            datum.put("Second Line", message);
+                            data.add(datum);
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                SimpleAdapter adapter = new SimpleAdapter(Messagerie.this, data,
+                        android.R.layout.simple_list_item_2,
+                        new String[]{"First Line", "Second Line"},
+                        new int[]{android.R.id.text1, android.R.id.text2});
+
+                l.setAdapter(adapter);
+                ll.setRefreshing(false);
+            }
+        });
     }
 
     public void getreception(View v) {
-        t.setText("Messages recus");
+        t.setText("Méssages reçus");
         r.setBackgroundColor(Color.WHITE);
         r.setTextColor(Color.BLACK);
         e.setBackgroundColor(Color.RED);
@@ -182,7 +226,7 @@ public class Messagerie extends Activity {
     }
 
     public void getenvoie(View v) {
-        t.setText("Messages envoyés");
+        t.setText("Méssages envoyés");
         r.setEnabled(true);
         e.setEnabled(false);
         e.setBackgroundColor(Color.WHITE);
@@ -221,4 +265,6 @@ public class Messagerie extends Activity {
         l.setAdapter(adapter);
         ix = 1;
     }
+
+
 }

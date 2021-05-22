@@ -23,7 +23,7 @@
             android:text="Déposer une annonce"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:textSize="30sp"
+            android:textSize="20sp"
 
             android:textStyle="bold|italic"
             android:typeface="normal" />
@@ -177,7 +177,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:text="Loyer  "
+            android:text="Loyer (en euros)  "
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold" />

@@ -16,4 +16,3 @@ $nbrow=$s->rowCount();
 
 echo json_encode(array("res"=>$res));
 
-//https://terl3recette.000webhostapp.com/Getannonce.php

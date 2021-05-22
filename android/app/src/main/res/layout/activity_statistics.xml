@@ -53,7 +53,7 @@
             android:layout_marginTop="25sp"
 
             android:gravity="center"
-            android:text="Le pourcentage du nombre de consultation selon la position géographique des immobiliers"
+            android:text="Le pourcentage du nombre de consultations selon la position géographique des immobiliers"
             android:textColor="#FFFFFF"
             android:textStyle="bold|italic" />
 
@@ -70,7 +70,7 @@
             android:layout_marginTop="25sp"
 
             android:gravity="center"
-            android:text="Le nombre de consultation selon la position géographique des clients"
+            android:text="Le nombre de consultations selon la position géographique des clients"
             android:textColor="#FFFFFF"
             android:textStyle="bold|italic" />
 

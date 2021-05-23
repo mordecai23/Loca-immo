@@ -126,7 +126,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
-                android:src="@drawable/logo" />
+                android:src="@drawable/more" />
         </androidx.cardview.widget.CardView>
         <!-- 4 -->
         <androidx.cardview.widget.CardView

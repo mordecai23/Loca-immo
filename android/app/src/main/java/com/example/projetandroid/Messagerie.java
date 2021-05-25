@@ -1,15 +1,14 @@
 package com.example.projetandroid;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -39,6 +38,7 @@ public class Messagerie extends Activity {
     int ix = 0;
     List<Map<String, String>> data = new ArrayList<>();
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +75,7 @@ public class Messagerie extends Activity {
                     JSONObject j = tabjson.getJSONObject(i);
                     String message = j.getString("contenu");
                     String envoyeur = j.getString("mail");
-                    Map<String, String> datum = new HashMap<String, String>(2);
+                    Map<String, String> datum = new HashMap<>(2);
                     datum.put("First Line", envoyeur);
                     datum.put("Second Line", message);
                     data.add(datum);
@@ -91,99 +91,86 @@ public class Messagerie extends Activity {
                 new int[]{android.R.id.text1, android.R.id.text2});
 
         l.setAdapter(adapter);
-        l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (ix == 0) {
-                    final String maildest = data.get(i).get("First Line");
+        l.setOnItemClickListener((adapterView, view, i, l) -> {
+            if (ix == 0) {
+                final String maildest = data.get(i).get("First Line");
 
-                    String lienbdd2 = "https://terl3recette.000webhostapp.com/getDetail.php";
-                    String query1 = "SELECT mail,numTel,idUtilisateur FROM utilisateur where mail='" + maildest + "'";
-                    String detail = Function.getresult(lienbdd2, query1);
+                String lienbdd2 = "https://terl3recette.000webhostapp.com/getDetail.php";
+                String query1 = "SELECT mail,numTel,idUtilisateur FROM utilisateur where mail='" + maildest + "'";
+                String detail = Function.getresult(lienbdd2, query1);
 
-                    final String idannonceur = detail.split("&&&&")[2];
+                final String idannonceur = detail.split("&&&&")[2];
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(Messagerie.this);
-                    builder.setTitle("Répondre au message");
+                AlertDialog.Builder builder = new AlertDialog.Builder(Messagerie.this);
+                builder.setTitle("Répondre au message");
 
-                    final EditText input = new EditText(Messagerie.this);
+                final EditText input = new EditText(Messagerie.this);
 
-                    input.setInputType(InputType.TYPE_CLASS_TEXT);
-                    builder.setView(input);
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(input);
 
-                    builder.setPositiveButton("Envoyer", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            String message = input.getText().toString();
-                            if (!(message.equals(""))) {
-                                String query2 = "INSERT INTO Messages(envoyeur,destinataire,contenu)  SELECT idUtilisateur,'" + idannonceur + "','" + message + "' FROM utilisateur WHERE mail='" + mail + "'";
-                                String lienbdd3 = "https://terl3recette.000webhostapp.com/inscription.php";
-                                executeRequest(lienbdd3, query2);
-                                Toast.makeText(getApplicationContext(), "Message envoyée !", Toast.LENGTH_LONG).show();
-                                Intent i1 = new Intent(Messagerie.this, Messagerie.class);
-                                i1.putExtra("mail", mail);
-                                startActivity(i1);
-                                finish();
-                            }
-                        }
-                    });
-                    builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
+                builder.setPositiveButton("Envoyer", (dialog, which) -> {
+                    String message = input.getText().toString();
+                    if (!(message.equals(""))) {
+                        String query2 = "INSERT INTO Messages(envoyeur,destinataire,contenu)  SELECT idUtilisateur,'" + idannonceur + "','" + message + "' FROM utilisateur WHERE mail='" + mail + "'";
+                        String lienbdd3 = "https://terl3recette.000webhostapp.com/inscription.php";
+                        executeRequest(lienbdd3, query2);
+                        Toast.makeText(getApplicationContext(), "Message envoyée !", Toast.LENGTH_LONG).show();
+                        Intent i1 = new Intent(Messagerie.this, Messagerie.class);
+                        i1.putExtra("mail", mail);
+                        startActivity(i1);
+                        finish();
+                    }
+                });
+                builder.setNegativeButton("Annuler", (dialog, which) -> dialog.cancel());
 
-                    builder.show();
+                builder.show();
 
 
-                }
             }
         });
 
-        ll.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                data.clear();
-                t.setText("Méssages reçus");
-                r.setBackgroundColor(Color.WHITE);
-                r.setTextColor(Color.BLACK);
-                e.setBackgroundColor(Color.RED);
-                e.setTextColor(Color.WHITE);
-                r.setEnabled(false);
-                e.setEnabled(true);
-                String jsonres1 = Function.getresult(lienbdd, query);
-                if (jsonres1 != null) {
-                    try {
-                        JSONObject json = new JSONObject(jsonres1);
-                        JSONArray tabjson = json.getJSONArray("res");
+        ll.setOnRefreshListener(() -> {
+            data.clear();
+            t.setText("Méssages reçus");
+            r.setBackgroundColor(Color.WHITE);
+            r.setTextColor(Color.BLACK);
+            e.setBackgroundColor(Color.RED);
+            e.setTextColor(Color.WHITE);
+            r.setEnabled(false);
+            e.setEnabled(true);
+            String jsonres11 = Function.getresult(lienbdd, query);
+            if (jsonres11 != null) {
+                try {
+                    JSONObject json = new JSONObject(jsonres11);
+                    JSONArray tabjson = json.getJSONArray("res");
 
-                        for (int i = 0; i < tabjson.length(); i++) {
+                    for (int i = 0; i < tabjson.length(); i++) {
 
-                            JSONObject j = tabjson.getJSONObject(i);
-                            String message = j.getString("contenu");
-                            String envoyeur = j.getString("mail");
-                            Map<String, String> datum = new HashMap<String, String>(2);
-                            datum.put("First Line", envoyeur);
-                            datum.put("Second Line", message);
-                            data.add(datum);
+                        JSONObject j = tabjson.getJSONObject(i);
+                        String message = j.getString("contenu");
+                        String envoyeur = j.getString("mail");
+                        Map<String, String> datum = new HashMap<>(2);
+                        datum.put("First Line", envoyeur);
+                        datum.put("Second Line", message);
+                        data.add(datum);
 
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                SimpleAdapter adapter = new SimpleAdapter(Messagerie.this, data,
-                        android.R.layout.simple_list_item_2,
-                        new String[]{"First Line", "Second Line"},
-                        new int[]{android.R.id.text1, android.R.id.text2});
-
-                l.setAdapter(adapter);
-                ll.setRefreshing(false);
             }
+            SimpleAdapter adapter1 = new SimpleAdapter(Messagerie.this, data,
+                    android.R.layout.simple_list_item_2,
+                    new String[]{"First Line", "Second Line"},
+                    new int[]{android.R.id.text1, android.R.id.text2});
+
+            l.setAdapter(adapter1);
+            ll.setRefreshing(false);
         });
     }
 
+    @SuppressLint("SetTextI18n")
     public void getreception(View v) {
         t.setText("Méssages reçus");
         r.setBackgroundColor(Color.WHITE);
@@ -206,7 +193,7 @@ public class Messagerie extends Activity {
                     JSONObject j = tabjson.getJSONObject(i);
                     String message = j.getString("contenu");
                     String envoyeur = j.getString("mail");
-                    Map<String, String> datum = new HashMap<String, String>(2);
+                    Map<String, String> datum = new HashMap<>(2);
                     datum.put("First Line", envoyeur);
                     datum.put("Second Line", message);
                     data.add(datum);
@@ -225,6 +212,7 @@ public class Messagerie extends Activity {
         ix = 0;
     }
 
+    @SuppressLint("SetTextI18n")
     public void getenvoie(View v) {
         t.setText("Méssages envoyés");
         r.setEnabled(true);
@@ -247,7 +235,7 @@ public class Messagerie extends Activity {
                     JSONObject j = tabjson.getJSONObject(i);
                     String message = j.getString("contenu");
                     String envoyeur = j.getString("mail");
-                    Map<String, String> datum = new HashMap<String, String>(2);
+                    Map<String, String> datum = new HashMap<>(2);
                     datum.put("First Line", envoyeur);
                     datum.put("Second Line", message);
                     data.add(datum);

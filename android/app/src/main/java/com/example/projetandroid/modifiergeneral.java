@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -17,14 +15,16 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class modifiergeneral extends Activity {
-    String mail, resjson, query, lienbdd, json_string;
+    String mail;
+    String query;
+    String lienbdd;
+    String json_string;
     ListView l;
     JSONObject json;
     JSONArray tabjson;
     annonceadapter ad;
-    int supp;
 
-    ArrayList<annonce> listannonce = new ArrayList<annonce>();
+    ArrayList<annonce> listannonce = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,30 +77,27 @@ public class modifiergeneral extends Activity {
             }
         }
         l.setAdapter(ad);
-        l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                annonce annoncesupp = listannonce.get(i);
-                final String idannonce = annoncesupp.getIdAnnonce().split(":")[1].trim();
-                final String typebien = annoncesupp.getTypeBien().split(":")[1].trim();
-                final String desc = annoncesupp.getDescription().split(":")[1].trim();
-                final String t = annoncesupp.getTitre().trim();
-                Intent i1 = new Intent(modifiergeneral.this, modifierannonce.class);
-                i1.putExtra("mail", mail);
-                i1.putExtra("idannonce", idannonce);
-                i1.putExtra("typebien", typebien);
-                i1.putExtra("desc", desc);
-                i1.putExtra("titre", t);
-                i1.putExtra("dureedispo", annoncesupp.getDureedispo());
-                i1.putExtra("Adresse", annoncesupp.getAdresse());
-                i1.putExtra("TypeContact", annoncesupp.getTypeContact());
-                i1.putExtra("ville", annoncesupp.getVille());
-                i1.putExtra("Loyer", annoncesupp.getLoyer());
-                i1.putExtra("surface", annoncesupp.getSurface());
-                startActivity(i1);
-                finish();
+        l.setOnItemClickListener((adapterView, view, i, l) -> {
+            annonce annoncesupp = listannonce.get(i);
+            final String idannonce = annoncesupp.getIdAnnonce().split(":")[1].trim();
+            final String typebien = annoncesupp.getTypeBien().split(":")[1].trim();
+            final String desc1 = annoncesupp.getDescription().split(":")[1].trim();
+            final String t = annoncesupp.getTitre().trim();
+            Intent i1 = new Intent(modifiergeneral.this, modifierannonce.class);
+            i1.putExtra("mail", mail);
+            i1.putExtra("idannonce", idannonce);
+            i1.putExtra("typebien", typebien);
+            i1.putExtra("desc", desc1);
+            i1.putExtra("titre", t);
+            i1.putExtra("dureedispo", annoncesupp.getDureedispo());
+            i1.putExtra("Adresse", annoncesupp.getAdresse());
+            i1.putExtra("TypeContact", annoncesupp.getTypeContact());
+            i1.putExtra("ville", annoncesupp.getVille());
+            i1.putExtra("Loyer", annoncesupp.getLoyer());
+            i1.putExtra("surface", annoncesupp.getSurface());
+            startActivity(i1);
+            finish();
 
-            }
         });
     }
 }

@@ -1,15 +1,9 @@
 package com.example.projetandroid;
 
 import android.app.Activity;
-import android.os.Build;
 import android.util.Log;
 import android.widget.Spinner;
 
-import androidx.annotation.RequiresApi;
-
-import com.android.volley.AuthFailureError;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONException;
@@ -37,34 +31,30 @@ public class Function extends Activity {
         final String lienbdd = link;
         final String query = request;
 
-        final Thread thread = new Thread(new Runnable() {
+        final Thread thread = new Thread(() -> {
+            try {
 
-            @Override
-            public void run() {
-                try {
+                URL lien = new URL(lienbdd);
+                HttpURLConnection http = (HttpURLConnection) lien.openConnection();
+                http.setRequestMethod("POST");
+                http.setDoOutput(true);
+                OutputStream os = http.getOutputStream();
+                BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8));
+                String data_string = URLEncoder.encode("query", "UTF-8") + "=" + URLEncoder.encode(query, "UTF-8") + "&";
 
-                    URL lien = new URL(lienbdd);
-                    HttpURLConnection http = (HttpURLConnection) lien.openConnection();
-                    http.setRequestMethod("POST");
-                    http.setDoOutput(true);
-                    OutputStream os = http.getOutputStream();
-                    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8));
-                    String data_string = URLEncoder.encode("query", "UTF-8") + "=" + URLEncoder.encode(query, "UTF-8") + "&";
-
-                    bw.write(data_string);
-                    bw.flush();
-                    bw.close();
-                    os.close();
-                    InputStream is = http.getInputStream();
-                    is.close();
+                bw.write(data_string);
+                bw.flush();
+                bw.close();
+                os.close();
+                InputStream is = http.getInputStream();
+                is.close();
 
 
-                    http.disconnect();
+                http.disconnect();
 
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
         thread.start();
@@ -81,45 +71,40 @@ public class Function extends Activity {
         resjson = "";
         final String lienbdd = link;
         final String query = request;
-        Thread thread = new Thread(new Runnable() {
+        Thread thread = new Thread(() -> {
+            try {
 
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-            @Override
-            public void run() {
-                try {
+                URL lien = new URL(lienbdd);
+                HttpURLConnection http = (HttpURLConnection) lien.openConnection();
+                http.setRequestMethod("POST");
+                http.setDoOutput(true);
+                OutputStream os = http.getOutputStream();
+                BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8));
+                String data_string = URLEncoder.encode("query", "UTF-8") + "=" + URLEncoder.encode(query, "UTF-8") + "&";
 
-                    URL lien = new URL(lienbdd);
-                    HttpURLConnection http = (HttpURLConnection) lien.openConnection();
-                    http.setRequestMethod("POST");
-                    http.setDoOutput(true);
-                    OutputStream os = http.getOutputStream();
-                    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8));
-                    String data_string = URLEncoder.encode("query", "UTF-8") + "=" + URLEncoder.encode(query, "UTF-8") + "&";
-
-                    bw.write(data_string);
-                    bw.flush();
-                    bw.close();
-                    os.close();
+                bw.write(data_string);
+                bw.flush();
+                bw.close();
+                os.close();
 
 
-                    InputStream is = http.getInputStream();
-                    BufferedReader br = new BufferedReader(new InputStreamReader(is));
-                    StringBuilder sb = new StringBuilder();
+                InputStream is = http.getInputStream();
+                BufferedReader br = new BufferedReader(new InputStreamReader(is));
+                StringBuilder sb = new StringBuilder();
 
-                    while ((res = br.readLine()) != null) {
-                        sb.append(res);
-                    }
-                    br.close();
-                    is.close();
-
-                    http.disconnect();
-
-                    resjson = sb.toString().trim();
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
+                while ((res = br.readLine()) != null) {
+                    sb.append(res);
                 }
+                br.close();
+                is.close();
+
+                http.disconnect();
+
+                resjson = sb.toString().trim();
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
         thread.start();
@@ -167,20 +152,10 @@ public class Function extends Activity {
         String contentType = "application/json";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(FCM_API, notification,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d("rrrrrrrrrrrrrrrrrrr : ", "onResponse: " + response.toString());
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("mmmmmmmmmmmmm", "errrrrrrrrrrrrr");
-                    }
-                }) {
+                response -> Log.d("rrrrrrrrrrrrrrrrrrr : ", "onResponse: " + response.toString()),
+                error -> Log.d("mmmmmmmmmmmmm", "errrrrrrrrrrrrr")) {
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
+            public Map<String, String> getHeaders() {
                 Map<String, String> params = new HashMap<>();
                 params.put("Authorization", serverKey);
                 params.put("Content-Type", contentType);

@@ -1,5 +1,6 @@
 package com.example.projetandroid;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
@@ -22,7 +23,9 @@ import static java.lang.Boolean.FALSE;
 public class Connexion extends Activity {
     Spinner type;
     EditText mdp, mail;
-    String vmdp, vmail, vtype, res;
+    String vmdp;
+    String vmail;
+    String vtype;
     Button b;
 
     private final TextWatcher connexionwatch = new TextWatcher() {
@@ -77,6 +80,7 @@ public class Connexion extends Activity {
         mail.addTextChangedListener(connexionwatch);
     }
 
+    @SuppressLint("SetTextI18n")
     public void connexionweb(View v) {
         ProgressBar pb = findViewById(R.id.loadcon);
         pb.setVisibility(View.VISIBLE);
@@ -105,22 +109,19 @@ public class Connexion extends Activity {
             Log.d("req", inserttoken);
 
             Toast.makeText(getApplicationContext(), "Vous etes désormais connecté.", Toast.LENGTH_LONG).show();
+            Intent i1;
             if (vtype.equals("Annonceur")) {
-                Intent i1 = new Intent(this, Accueil_annonceur.class);
-                i1.putExtra("mail", vmail);
-                startActivity(i1);
-                finish();
+                i1 = new Intent(this, Accueil_annonceur.class);
             } else {
-                Intent i1 = new Intent(this, Accueil_client.class);
-                i1.putExtra("mail", vmail);
-                startActivity(i1);
-                finish();
+                i1 = new Intent(this, Accueil_client.class);
             }
+            i1.putExtra("mail", vmail);
+            startActivity(i1);
         } else {
 
             Toast.makeText(getApplicationContext(), "La connexion a échoué, inscrivez vous ou resaisissez vos identifiants", Toast.LENGTH_LONG).show();
-            finish();
         }
+        finish();
     }
 
 

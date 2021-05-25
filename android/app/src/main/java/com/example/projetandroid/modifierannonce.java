@@ -1,5 +1,6 @@
 package com.example.projetandroid;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -23,12 +24,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -75,7 +74,6 @@ public class modifierannonce extends Activity {
     };
     int choix;
     long iddepot;
-    int j = 0;
     Uri[] tabimage;
     ArrayList<String> tablienimage;
     String mail, query;
@@ -83,10 +81,11 @@ public class modifierannonce extends Activity {
     DatabaseReference dr;
     TextView titre;
     ArrayList<String> lienimage = new ArrayList<>();
-    String resjson, json_string;
+    String json_string;
     JSONObject json;
     JSONArray tabjson;
 
+    @SuppressLint({"SetTextI18n", "CutPasteId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -215,6 +214,7 @@ public class modifierannonce extends Activity {
         });
     }
 
+    @SuppressLint("SetTextI18n")
     public void deposerannonce(View v) {
         b.setEnabled(FALSE);
         b.setText("modifications en cours....");
@@ -232,9 +232,9 @@ public class modifierannonce extends Activity {
 
         // lien vers le php qui traitera les requetes pour l'insertion dans la BDD
         String lienbdd = "https://terl3recette.000webhostapp.com/inscription.php";
-        for (int i = 0; i < liensup.length; i++) {
-            if (!liensup[i].equals("")) {
-                String q = "DELETE FROM image WHERE lien='" + liensup[i] + "'";
+        for (String s : liensup) {
+            if (!s.equals("")) {
+                String q = "DELETE FROM image WHERE lien='" + s + "'";
                 executeRequest(lienbdd, q);
             }
         }
@@ -314,26 +314,15 @@ public class modifierannonce extends Activity {
 
 
                 imageref.putFile(tabimage[i])
-                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        .addOnSuccessListener(taskSnapshot -> imageref.getDownloadUrl().addOnSuccessListener(uri -> {
+                            tablienimage.add(uri.toString());
+                            final String lieni = uri.toString();
 
-                                imageref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                    @Override
-                                    public void onSuccess(Uri uri) {
-                                        Uri downloadUrl = uri;
-                                        tablienimage.add(downloadUrl.toString());
-                                        final String lieni = downloadUrl.toString();
+                            String lienbdd = "https://terl3recette.000webhostapp.com/inscription.php";
+                            String queryimage = "INSERT INTO image(idAnnonce,lien) VALUES ('" + iddepot + "','" + lieni + "');";
+                            Function.executeRequest(lienbdd, queryimage);
 
-                                        String lienbdd = "https://terl3recette.000webhostapp.com/inscription.php";
-                                        String queryimage = "INSERT INTO image(idAnnonce,lien) VALUES ('" + iddepot + "','" + lieni + "');";
-                                        Function.executeRequest(lienbdd, queryimage);
-
-                                    }
-
-                                });
-                            }
-                        });
+                        }));
 
 
             }

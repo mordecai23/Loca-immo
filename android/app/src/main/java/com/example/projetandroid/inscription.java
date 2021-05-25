@@ -1,5 +1,6 @@
 package com.example.projetandroid;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
@@ -117,6 +118,7 @@ public class inscription extends Activity {
     }
 
     //Lancement du thread lors de la validation
+    @SuppressLint("SetTextI18n")
     public void inscriptionweb(View v) {
         ProgressBar pb = findViewById(R.id.loadins);
         pb.setVisibility(View.VISIBLE);
@@ -157,17 +159,15 @@ public class inscription extends Activity {
             executeRequest(lientoken, deletetoken);
             executeRequest(lientoken, inserttoken);
 
+            Intent i1;
             if (vtype.equals("Annonceur")) {
-                Intent i1 = new Intent(this, Accueil_annonceur.class);
-                i1.putExtra("mail", vmail);
-                startActivity(i1);
-                finish();
+                i1 = new Intent(this, Accueil_annonceur.class);
             } else {
-                Intent i1 = new Intent(this, Accueil_client.class);
-                i1.putExtra("mail", vmail);
-                startActivity(i1);
-                finish();
+                i1 = new Intent(this, Accueil_client.class);
             }
+            i1.putExtra("mail", vmail);
+            startActivity(i1);
+            finish();
 
         } else {
             Toast.makeText(getApplicationContext(), "Cette adresse mail est déjà utilisée.", Toast.LENGTH_LONG).show();

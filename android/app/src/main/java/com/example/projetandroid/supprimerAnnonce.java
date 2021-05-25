@@ -2,13 +2,10 @@ package com.example.projetandroid;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -22,14 +19,16 @@ import java.util.ArrayList;
 import static com.example.projetandroid.Function.executeRequest;
 
 public class supprimerAnnonce extends Activity {
-    String mail, resjson, query, lienbdd, json_string;
+    String mail;
+    String query;
+    String lienbdd;
+    String json_string;
     ListView l;
     JSONObject json;
     JSONArray tabjson;
     annonceadapter ad;
-    int supp;
 
-    ArrayList<annonce> listannonce = new ArrayList<annonce>();
+    ArrayList<annonce> listannonce = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,91 +82,65 @@ public class supprimerAnnonce extends Activity {
         }
         l.setAdapter(ad);
 
-        l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                annonce annoncesupp = listannonce.get(i);
-                final String idannonce = annoncesupp.getIdAnnonce().split(":")[1].trim();
-                final String t = annoncesupp.getTitre();
-                final String lienbd = "https://terl3recette.000webhostapp.com/inscription.php";
-                final String querydel = "DELETE FROM Annonce_immo where idAnnonce='" + idannonce + "'";
+        l.setOnItemClickListener((adapterView, view, i, l) -> {
+            annonce annoncesupp = listannonce.get(i);
+            final String idannonce = annoncesupp.getIdAnnonce().split(":")[1].trim();
+            final String lienbd = "https://terl3recette.000webhostapp.com/inscription.php";
+            final String querydel = "DELETE FROM Annonce_immo where idAnnonce='" + idannonce + "'";
 
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(supprimerAnnonce.this);
-                builder.setMessage("Supprimer ou Renforcer");
-                builder.setPositiveButton("Supprimer", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        AlertDialog.Builder buildersupp = new AlertDialog.Builder(supprimerAnnonce.this);
-                        buildersupp.setMessage("Voulez vous supprimer cette annonce?");
-                        buildersupp.setPositiveButton("Supprimer", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                executeRequest(lienbd, querydel);
-                                Toast.makeText(getApplicationContext(), "Votre annonce a été supprimée", Toast.LENGTH_LONG).show();
-                                Intent i1 = new Intent(supprimerAnnonce.this, supprimerAnnonce.class);
-                                i1.putExtra("mail", mail);
-                                startActivity(i1);
-                                finish();
+            AlertDialog.Builder builder = new AlertDialog.Builder(supprimerAnnonce.this);
+            builder.setMessage("Supprimer ou Renforcer");
+            builder.setPositiveButton("Supprimer", (dialog, id) -> {
+                AlertDialog.Builder buildersupp = new AlertDialog.Builder(supprimerAnnonce.this);
+                buildersupp.setMessage("Voulez vous supprimer cette annonce?");
+                buildersupp.setPositiveButton("Supprimer", (dialog1, id1) -> {
+                    executeRequest(lienbd, querydel);
+                    Toast.makeText(getApplicationContext(), "Votre annonce a été supprimée", Toast.LENGTH_LONG).show();
+                    Intent i1 = new Intent(supprimerAnnonce.this, supprimerAnnonce.class);
+                    i1.putExtra("mail", mail);
+                    startActivity(i1);
+                    finish();
 
-                            }
-                        });
-                        buildersupp.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                Toast.makeText(supprimerAnnonce.this, "Supression annulée", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                        buildersupp.show();
-
-
-                    }
                 });
-                builder.setNeutralButton("Renforcer", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                        AlertDialog.Builder builder1 = new AlertDialog.Builder(supprimerAnnonce.this);
-                        builder1.setMessage("Sélectionnez la durée.");
+                buildersupp.setNegativeButton("Annuler", (dialog12, id12) -> Toast.makeText(supprimerAnnonce.this, "Supression annulée", Toast.LENGTH_LONG).show());
+                buildersupp.show();
 
 
-                        builder1.setPositiveButton("1 jours", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                final String lienbd1 = "https://terl3recette.000webhostapp.com/inscription.php";
-                                final String dureequery = "UPDATE Annonce_immo SET dateDepot=(SELECT DATE_ADD(CURRENT_TIMESTAMP(),INTERVAL 1 DAY)) where idAnnonce='" + idannonce + "'";
-                                executeRequest(lienbd1, dureequery);
-                                Toast.makeText(getApplicationContext(), "Votre annonce a été renforcée de 1 jours", Toast.LENGTH_LONG).show();
+            });
+            builder.setNeutralButton("Renforcer", (dialog, id) -> {
 
-                            }
-                        });
-                        builder1.setNeutralButton("5 jours", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-
-                                final String dureequery = "UPDATE Annonce_immo SET dateDepot=(SELECT DATE_ADD(CURRENT_TIMESTAMP(),INTERVAL 5 DAY)) where idAnnonce='" + idannonce + "'";
-                                String lienbddd = "https://terl3recette.000webhostapp.com/inscription.php";
-
-                                executeRequest(lienbddd, dureequery);
-                                Toast.makeText(getApplicationContext(), "Votre annonce a été renforcée de 5 jours", Toast.LENGTH_LONG).show();
-
-                            }
-                        });
-                        builder1.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                Toast.makeText(supprimerAnnonce.this, "Renforcement annulé", Toast.LENGTH_LONG).show();
-                            }
-                        });
-
-                        builder1.show();
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(supprimerAnnonce.this);
+                builder1.setMessage("Sélectionnez la durée.");
 
 
-                    }
+                builder1.setPositiveButton("1 jours", (dialog13, id13) -> {
+                    final String lienbd1 = "https://terl3recette.000webhostapp.com/inscription.php";
+                    final String dureequery = "UPDATE Annonce_immo SET dateDepot=(SELECT DATE_ADD(CURRENT_TIMESTAMP(),INTERVAL 1 DAY)) where idAnnonce='" + idannonce + "'";
+                    executeRequest(lienbd1, dureequery);
+                    Toast.makeText(getApplicationContext(), "Votre annonce a été renforcée de 1 jours", Toast.LENGTH_LONG).show();
+
                 });
+                builder1.setNeutralButton("5 jours", (dialog14, id14) -> {
 
-                builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        Toast.makeText(supprimerAnnonce.this, "Gestion annulée", Toast.LENGTH_LONG).show();
-                    }
+                    final String dureequery = "UPDATE Annonce_immo SET dateDepot=(SELECT DATE_ADD(CURRENT_TIMESTAMP(),INTERVAL 5 DAY)) where idAnnonce='" + idannonce + "'";
+                    String lienbddd = "https://terl3recette.000webhostapp.com/inscription.php";
+
+                    executeRequest(lienbddd, dureequery);
+                    Toast.makeText(getApplicationContext(), "Votre annonce a été renforcée de 5 jours", Toast.LENGTH_LONG).show();
+
                 });
-                builder.show();
+                builder1.setNegativeButton("Annuler", (dialog15, id15) -> Toast.makeText(supprimerAnnonce.this, "Renforcement annulé", Toast.LENGTH_LONG).show());
+
+                builder1.show();
 
 
-            }
+            });
+
+            builder.setNegativeButton("Annuler", (dialog, id) -> Toast.makeText(supprimerAnnonce.this, "Gestion annulée", Toast.LENGTH_LONG).show());
+            builder.show();
+
+
         });
 
 

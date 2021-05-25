@@ -20,14 +20,10 @@ public class Splashscreen extends Activity {
         animationDrawable.setExitFadeDuration(1000);
         animationDrawable.start();
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                /* Create an Intent that will start the Menu-Activity. */
-                Intent mainIntent = new Intent(Splashscreen.this, MainActivity.class);
-                Splashscreen.this.startActivity(mainIntent);
-                Splashscreen.this.finish();
-            }
-        }, 3000);
+        new Handler().postDelayed(() -> {
+            Intent mainIntent = new Intent(Splashscreen.this, MainActivity.class);
+            Splashscreen.this.startActivity(mainIntent);
+            Splashscreen.this.finish();
+        }, 2000);
     }
 }

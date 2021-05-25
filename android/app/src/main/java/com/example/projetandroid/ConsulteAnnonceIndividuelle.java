@@ -3,7 +3,6 @@ package com.example.projetandroid;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
@@ -30,6 +29,7 @@ public class ConsulteAnnonceIndividuelle extends Activity {
     String texttitre;
     String modeinvite;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,9 +79,7 @@ public class ConsulteAnnonceIndividuelle extends Activity {
         iddepot = Long.parseLong(modif.getStringExtra("idannonce"));
         lien1 = modif.getStringExtra("image1");
         lien2 = modif.getStringExtra("image2");
-        if (lien1.equals("")) {
-            //i1.setVisibility(View.GONE);
-        } else {
+        if (!lien1.equals("")) {
             Picasso.get().load(lien1).into(i1);
         }
         if (lien2.equals("")) {
@@ -136,6 +134,7 @@ public class ConsulteAnnonceIndividuelle extends Activity {
         }
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     public void dialPhoneNumber(String phoneNumber) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
         intent.setData(Uri.parse("tel:" + phoneNumber));
@@ -157,24 +156,25 @@ public class ConsulteAnnonceIndividuelle extends Activity {
         String num = detail.split("&&&&")[1];
         final String idannonceur = detail.split("&&&&")[2];
 
-        if (contact.equals("Mail")) {
-            String[] tabmail = new String[1];
-            tabmail[0] = email;
-            composeEmail(tabmail, "Information sur la location");
-        } else if (contact.equals("Téléphone")) {
-            dialPhoneNumber(num);
-        } else if (contact.equals("Application")) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Envoyer un message à l'annonceur");
+        switch (contact) {
+            case "Mail":
+                String[] tabmail = new String[1];
+                tabmail[0] = email;
+                composeEmail(tabmail, "Information sur la location");
+                break;
+            case "Téléphone":
+                dialPhoneNumber(num);
+                break;
+            case "Application":
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Envoyer un message à l'annonceur");
 
-            final EditText input = new EditText(this);
+                final EditText input = new EditText(this);
 
-            input.setInputType(InputType.TYPE_CLASS_TEXT);
-            builder.setView(input);
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(input);
 
-            builder.setPositiveButton("Envoyer", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
+                builder.setPositiveButton("Envoyer", (dialog, which) -> {
                     String message = input.getText().toString();
                     if (!(message.equals(""))) {
                         message = "REF-" + texttitre + " : \n" + message;
@@ -183,16 +183,11 @@ public class ConsulteAnnonceIndividuelle extends Activity {
                         executeRequest(lienbdd3, query2);
                         Toast.makeText(getApplicationContext(), "Message envoyée !", Toast.LENGTH_LONG).show();
                     }
-                }
-            });
-            builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
+                });
+                builder.setNegativeButton("Annuler", (dialog, which) -> dialog.cancel());
 
-            builder.show();
+                builder.show();
+                break;
         }
     }
 

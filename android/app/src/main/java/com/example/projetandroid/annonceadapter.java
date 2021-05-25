@@ -11,10 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class annonceadapter extends ArrayAdapter {
-    public List list = new ArrayList();
+    public ArrayList<annonce> list = new ArrayList<>();
 
     public annonceadapter(@NonNull Context context, int resource) {
         super(context, resource);

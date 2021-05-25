@@ -1,5 +1,6 @@
 package com.example.projetandroid;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -22,12 +23,10 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -71,7 +70,6 @@ public class deposer extends Activity {
     };
     int choix;
     long iddepot;
-    int j = 0;
     Uri[] tabimage;
     ArrayList<String> tablienimage;
     String mail;
@@ -135,6 +133,7 @@ public class deposer extends Activity {
 
     }
 
+    @SuppressLint("SetTextI18n")
     public void deposerannonce(View v) {
         ProgressBar pb = findViewById(R.id.loaddeposer);
         pb.setVisibility(View.VISIBLE);
@@ -158,7 +157,7 @@ public class deposer extends Activity {
         String lienbdd = "https://terl3recette.000webhostapp.com/inscription.php";
         java.util.Date dt = new java.util.Date();
 
-        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        @SuppressLint("SimpleDateFormat") java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         String currentTime = sdf.format(dt);
         //requete d'insertion
@@ -169,61 +168,53 @@ public class deposer extends Activity {
         Function.executeRequest(lienbdd, query1);
 
 
-        final Thread thread1 = new Thread(new Runnable() {
+        final Thread thread1 = new Thread(() -> {
+            try {
+                String queryAlert = "SELECT u.idutilisateur AS nom,token as nb FROM utilisateurtoken u INNER JOIN Critere c ON c.idutilisateur=u.idutilisateur WHERE c.loyer>=" + loyer + " AND c.surface>=" + surf + " AND c.type='" + vtypebien + "' AND c.ville='" + ville + "'";
+                Log.d("qqqq", queryAlert);
+                String bddAlert = "https://terl3recette.000webhostapp.com/GetGlobalStats.php";
+                String json_string = Function.getresult(bddAlert, queryAlert);
+                String title = "Une annonce vous correspond !";
+                String notif = "\"" + titre + "\" a été ajoutée à votre liste de préférence.";
+                Log.d("jjjjjj", json_string);
+                if (json_string != null) {
+                    try {
+                        JSONObject json = new JSONObject(json_string);
+                        JSONArray tabjson = json.getJSONArray("res");
 
-            @Override
-            public void run() {
-                try {
-                    String queryAlert = "SELECT u.idutilisateur AS nom,token as nb FROM utilisateurtoken u INNER JOIN Critere c ON c.idutilisateur=u.idutilisateur WHERE c.loyer>=" + loyer + " AND c.surface>=" + surf + " AND c.type='" + vtypebien + "' AND c.ville='" + ville + "'";
-                    Log.d("qqqq", queryAlert);
-                    String bddAlert = "https://terl3recette.000webhostapp.com/GetGlobalStats.php";
-                    String json_string = Function.getresult(bddAlert, queryAlert);
-                    String title = "Une annonce vous correspond !";
-                    String notif = "\"" + titre + "\" a été ajoutée à votre liste de préférence.";
-                    Log.d("jjjjjj", json_string);
-                    if (json_string != null) {
-                        try {
-                            JSONObject json = new JSONObject(json_string);
-                            JSONArray tabjson = json.getJSONArray("res");
+                        for (int i = 0; i < tabjson.length(); i++) {
 
-                            for (int i = 0; i < tabjson.length(); i++) {
+                            JSONObject j = tabjson.getJSONObject(i);
+                            String idutilisateur = j.getString("nom");
+                            String token = j.getString("nb");
+                            Function.SendPushNotification(token, title, notif, deposer.this);
 
-                                JSONObject j = tabjson.getJSONObject(i);
-                                String idutilisateur = j.getString("nom");
-                                String token = j.getString("nb");
-                                Function.SendPushNotification(token, title, notif, deposer.this);
+                            String query2 = "INSERT INTO Messages(envoyeur,destinataire,contenu)  SELECT idUtilisateur,'" + idutilisateur + "','" + notif + "' FROM utilisateur WHERE mail='Alerte Loca-immo'";
+                            String lienbdd3 = "https://terl3recette.000webhostapp.com/inscription.php";
+                            Log.d("eeeeeeeeeeeeeeeeeeeeeee", query2);
+                            executeRequest(lienbdd3, query2);
 
-                                String query2 = "INSERT INTO Messages(envoyeur,destinataire,contenu)  SELECT idUtilisateur,'" + idutilisateur + "','" + notif + "' FROM utilisateur WHERE mail='Alerte Loca-immo'";
-                                String lienbdd3 = "https://terl3recette.000webhostapp.com/inscription.php";
-                                Log.d("eeeeeeeeeeeeeeeeeeeeeee", query2);
-                                executeRequest(lienbdd3, query2);
+                            String queryajout = "INSERT INTO depot_consulte(idAnnonce,idutilisateur,type) SELECT '" + iddepot + "',idUtilisateur,3 FROM utilisateur WHERE idUtilisateur=" + idutilisateur + ";";
+                            String bddajout = "https://terl3recette.000webhostapp.com/inscription.php";
+                            executeRequest(bddajout, queryajout);
 
-                                String queryajout = "INSERT INTO depot_consulte(idAnnonce,idutilisateur,type) SELECT '" + iddepot + "',idUtilisateur,3 FROM utilisateur WHERE idUtilisateur=" + idutilisateur + ";";
-                                String bddajout = "https://terl3recette.000webhostapp.com/inscription.php";
-                                executeRequest(bddajout, queryajout);
-
-                            }
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
         thread1.start();
-        final Thread thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    uploadimages();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        final Thread thread = new Thread(() -> {
+            try {
+                uploadimages();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
         thread.start();
@@ -295,26 +286,15 @@ public class deposer extends Activity {
 
 
                 imageref.putFile(tabimage[i])
-                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        .addOnSuccessListener(taskSnapshot -> imageref.getDownloadUrl().addOnSuccessListener(uri -> {
+                            tablienimage.add(uri.toString());
+                            final String lieni = uri.toString();
 
-                                imageref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                    @Override
-                                    public void onSuccess(Uri uri) {
-                                        Uri downloadUrl = uri;
-                                        tablienimage.add(downloadUrl.toString());
-                                        final String lieni = downloadUrl.toString();
+                            String lienbdd = "https://terl3recette.000webhostapp.com/inscription.php";
+                            String queryimage = "INSERT INTO image(idAnnonce,lien) VALUES ('" + iddepot + "','" + lieni + "');";
+                            Function.executeRequest(lienbdd, queryimage);
 
-                                        String lienbdd = "https://terl3recette.000webhostapp.com/inscription.php";
-                                        String queryimage = "INSERT INTO image(idAnnonce,lien) VALUES ('" + iddepot + "','" + lieni + "');";
-                                        Function.executeRequest(lienbdd, queryimage);
-
-                                    }
-
-                                });
-                            }
-                        });
+                        }));
 
 
             }

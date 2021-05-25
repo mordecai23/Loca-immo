@@ -1,5 +1,6 @@
 package com.example.projetandroid;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
@@ -113,6 +114,7 @@ public class AlertActivity extends Activity {
 
     }
 
+    @SuppressLint("SetTextI18n")
     public void addalert(View v) {
         b.setEnabled(FALSE);
         b.setText("En cours....");

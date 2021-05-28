@@ -56,7 +56,7 @@
   <component name="CodeInsightWorkspaceSettings">
     <option name="optimizeImportsOnTheFly" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[SerialNumber@CQ30012W5B]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -121,8 +121,8 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Nexus_S_API_23" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2021-05-21T22:15:03.501Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="VirtualDevicePath@C:\Users\Yash Pro\.android\avd\4.7_WXGA_API_23.avd" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2021-05-27T10:33:06.782573600Z" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -130,7 +130,7 @@
     <property name="android-custom-viewC:/Users/Yash Pro/.gradle/caches/modules-2/files-2.1/com.github.PhilJay/MPAndroidChart/v3.0.3/38251ee74b9d9c16a5b707c7b924d84d352cce0a/MPAndroidChart-v3.0.3-sources.jar!/com/github/mikephil/charting/charts/BarChart.java_SELECTED" value="BarChart" />
     <property name="android.recentlyUsedThemes" value="Base.Theme.MaterialComponents.Light" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../rental-property-main/app" />
     <property name="multi-representation-previewC:/Users/Yash Pro/.gradle/caches/modules-2/files-2.1/com.github.PhilJay/MPAndroidChart/v3.0.3/38251ee74b9d9c16a5b707c7b924d84d352cce0a/MPAndroidChart-v3.0.3-sources.jar!/com/github/mikephil/charting/charts/BarChart.java_selected" value="Custom views" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.17" />
@@ -468,10 +468,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="498" y="158" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1619993523794" />
-    <state x="93" y="93" width="1350" height="638" key="AVDManager" timestamp="1621608023704">
+    <state x="93" y="93" width="1350" height="638" key="AVDManager" timestamp="1622120256171">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="93" y="93" width="1350" height="638" key="AVDManager/0.0.1536.824@0.0.1536.824" timestamp="1621608023704" />
+    <state x="93" y="93" width="1350" height="638" key="AVDManager/0.0.1536.824@0.0.1536.824" timestamp="1622120256171" />
     <state x="564" y="158" key="AndroidProcessChooserDialog" timestamp="1621449351416">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -484,26 +484,26 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="276" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1619826854210" />
-    <state x="889" y="152" key="FileChooserDialogImpl" timestamp="1621789284850">
+    <state x="889" y="152" key="FileChooserDialogImpl" timestamp="1622155101142">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="889" y="152" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1621789284850" />
-    <state width="1478" height="154" key="GridCell.Tab.0.bottom" timestamp="1621945014003">
+    <state x="889" y="152" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1622155101142" />
+    <state width="1493" height="270" key="GridCell.Tab.0.bottom" timestamp="1622113800370">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1478" height="154" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1621945014003" />
-    <state width="1478" height="154" key="GridCell.Tab.0.center" timestamp="1621945014003">
+    <state width="1493" height="270" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1622113800370" />
+    <state width="1493" height="270" key="GridCell.Tab.0.center" timestamp="1622113800370">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1478" height="154" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1621945014003" />
-    <state width="1478" height="154" key="GridCell.Tab.0.left" timestamp="1621945014003">
+    <state width="1493" height="270" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1622113800370" />
+    <state width="1493" height="270" key="GridCell.Tab.0.left" timestamp="1622113800369">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1478" height="154" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1621945014003" />
-    <state width="1478" height="154" key="GridCell.Tab.0.right" timestamp="1621945014003">
+    <state width="1493" height="270" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1622113800369" />
+    <state width="1493" height="270" key="GridCell.Tab.0.right" timestamp="1622113800370">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1478" height="154" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1621945014003" />
+    <state width="1493" height="270" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1622113800370" />
     <state x="352" y="95" key="SettingsEditor" timestamp="1621598933784">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

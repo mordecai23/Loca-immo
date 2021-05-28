@@ -6,6 +6,7 @@ $db = DataBase::getInstance();
 $query=$_POST['query'];
 $s = $db->prepare($query);
 $s->execute();
+$util=array();
 
 while ($rows = $s->fetch(PDO::FETCH_LAZY)) {
    
@@ -13,6 +14,4 @@ while ($rows = $s->fetch(PDO::FETCH_LAZY)) {
 
 $nbrow=$s->rowCount();
 
-echo (String)$nbrow;
-
-//https://terl3recette.000webhostapp.com/connexionutilisateur.php
+echo (string) $nbrow;
